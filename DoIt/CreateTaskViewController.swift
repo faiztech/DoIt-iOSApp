@@ -13,7 +13,7 @@ class CreateTaskViewController: UIViewController {
     @IBOutlet weak var importantSwitch: UISwitch!
     @IBOutlet weak var taskNameField: UITextField!
     
-    
+    var previousVC = ViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +23,16 @@ class CreateTaskViewController: UIViewController {
     
     
     @IBAction func addTapped(_ sender: Any) {
-        
+        //creating a task from outlet information
         let task = Task()
         task.name = taskNameField.text!
         task.important = importantSwitch.isOn
         
-        print(task.name)
+        
+        // adding it to the array in previous View
+        previousVC.tasks.append(task)
+        previousVC.tableView.reloadData()
+        navigationController!.popViewController(animated: true)
     }
     
     
